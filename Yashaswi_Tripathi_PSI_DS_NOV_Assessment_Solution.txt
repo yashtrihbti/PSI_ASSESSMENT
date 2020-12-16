@@ -1,0 +1,170 @@
+-----------------------------------------------------------------------------------------------Coding----------------------------------------------------------------------------------------
+Q1-Write a function that returns the maximum of two numbers. (Python Code)
+
+def maximum(a, b):
+      
+    if a >= b:
+        return a
+    else:
+        return b
+      
+# Driver code
+
+first = 29
+second = 40
+print(maximum(first, second))
+
+Q2-Write a program (function!) that takes a list and returns a new list that contains all the elements of the first list minus all the duplicates.
+
+def uniquelements(list1):
+    
+    len1=len(list1)     # length of original list
+    list2=[]            # new list containing elements after eliminating duplicates
+    list2.append(list1[0])
+   
+    # We would append the new element in the second list only if it has not occured before so that we only get 
+    # unique enteries.(enteries without any duplicates)
+    #So the resulting elements oflist2 would be elements from original list after eliminating the duplicates.
+    
+    for i in range(1,len1):     
+        k=i-1
+        j=0
+        flag=0
+        while j<=k:
+            if list1[j]==list1[i]:
+                flag=1
+            j=j+1
+        if flag==0:
+            list2.append(list1[i])
+    
+
+    return list2
+    
+
+    # Driver code
+    
+    orig_list=[1,2,2,3,4,5,5,5,6,6]
+    uniquelements(orig_list)
+
+Q3-Write a pyspark program to get the first 10 records from RDD. (Give Complete Explanation with Steps.)
+
+1.Make connection between driver and executor using spark context.
+2.Make a RDD either by loading hdfs file or using sc.parallelize command.
+3.After making RDD perform an action .take(10) to get 10 records from the RDD but .take will give random outputs in each call so to get deterministic output
+  use .takeOrdered to first order the enteries in ascending or descending order and then fetch the top 10 outputs.
+
+
+Q4-Write a Tableau Case statement Name: Days to Ship Scheduled If Ship Mode is Same Day, First Class, Second Class, and Standard Class then respective ship days will be 0,1,3,6 Days.
+
+Code:
+
+CASE([Ship Mode])
+WHEN ("Same Day") THEN 0
+WHEN ("First Class") THEN 1
+WHEN ("Second Class") THEN 3
+WHEN ("Standard Class") THEN 6
+END
+
+Steps with Explanations: 
+1. In the data tab on the left side go to the drop down box beside the filter icon and choose “Create Calculated Field” or you can goto analysis option at the top and select 
+   "Create Calculated Field".
+2. Type in the name “Days to Ship Scheduled” in the first field situated at the top (This defines the name of the derived(computed) coloumn).
+3. Type in “Code as mentioned above” to formulate the column using the values in the case statement (based on the class of shipping and conditined using "WHEN" clause to define the number 
+   of days using "THEN" clause).
+4. Submit it (click apply button) to execute the query. This column will now be available in the left pane in the data tab.
+
+Q5-Create a Tableau Calculated Field to calculate Profit Ratio. Where your column names are Profit and Sales. 
+
+Code: Sum ( [Profit] ) / Sum ( [Sales] )
+
+Steps with Explanations: 
+1. In the data tab on the left side go to the drop down box beside the filter icon and choose “Create Calculated Field” or you can goto analysis option at the top and select "Create Calculated Field".
+2. Type in the name “PROFIT RATIO” in the first field situated at the top (This defines the name of the derived(computed) coloumn).
+3. Type in “Sum ( [Profit] ) / Sum ( [Sales] )” to calculate the profit ratio i.e. profit per unit sales.
+4. Submit it (click apply button) to execute the query. This column will now be available in the left pane in the data tab.
+
+
+
+
+------------------------------------------------------------------------------------------Subjective-----------------------------------------------------------------------------------------
+
+
+Q1-Explain PySpark in brief?
+
+PySpark is a Python API for Spark released by the Apache Spark community to support Python with Spark. Using PySpark, we can easily integrate and work with RDDs in Python programming 
+language too. There are numerous features that make PySpark an amazing framework for working with huge datasets whether it is to perform computations on large datasets or to analyze them.
+
+Key Features of PySpark
+1. Real-time computations: Because of the in-memory processing in the PySpark framework, it shows low latency.
+2. Works well with RDDs: Python programming language is dynamically typed, which helps when working with RDDs.
+3. Caching and disk persistence: This framework provides powerful caching and great disk persistence.
+4. Polyglot: The PySpark framework is compatible with various languages such as Scala, Python, Java and R, thus making it one of the most preferable frameworks for processing huge datasets.
+5. Fast processing: The PySpark framework is much faster than other traditional frameworks for Big Data processing.
+
+
+
+Q2-What are the main characteristics of (Py)Spark?
+
+1. Nodes are abstracted
+That means we cannot address an individual node.
+
+
+2. Based on Map-Reduce
+Programmers offer a map and a reduce function.
+
+
+3. Network is abstracted
+Implicit communication is only possible here.
+
+
+4. API for Spark
+PySpark is one of the API for Spark.
+
+
+Q3-What do you mean by PySpark SparkContext?
+
+SparkContext is the entry point to any spark functionality. When we run any Spark application, a driver program starts, which has the main function and your SparkContext gets 
+initiated here. The driver program then runs the operations inside the executors on worker nodes.
+SparkContext uses Py4J to launch a JVM and creates a JavaSparkContext. By default, PySpark has SparkContext available as ‘sc’.
+
+Example of Pyspark SparkContext in Python:-
+
+from pyspark import SparkContext
+logFile = "file path"
+sc = SparkContext("local", "demo")
+logData = sc.textFile(logFile).cache()
+Xs = logData.filter(lambda s: 'x' in s).count()
+Ys = logData.filter(lambda s: 'y' in s).count()
+print ("Lines with x and y respectively",Xs,Ys)
+
+Q4-What is pep 8?
+
+PEP stands for Python Enhancement Proposal. PEP 8, PEP8 or PEP-8, is a document that provides guidelines and best practices on how to write Python code. The primary focus of PEP 8 is to 
+improve the readability and consistency of Python code.
+
+Q5-What is the difference between list and tuples in Python?
+
+LIST:-	
+               
+1. Lists are mutable.
+2. The list is better than tuple when performing operations, such as insertion and deletion.	
+3. Lists consume more memory. 
+4. Lists have several built-in methods.(Example pop(),remove())	
+5. Implication of iterations is Time-consuming.
+6. The unexpected changes and errors are more likely to occur.	
+
+
+TUPLE:-
+
+1. Tuple are immutable.
+2. Tuple data type is appropriate for accessing the elements.
+3. Tuple consume less memory as compared to the list. Python allocates memory to tuples in terms of larger blocks with a low overhead as they are immutable. While, 
+   for lists, Pythons allocates small memory blocks thus resulting in tuple having a smaller memory compared to the list.
+4. Tuple does not have built-in methods.
+5. Implication of iterations is comparatively Faster.
+6. In tuples,  unexpected changes and errors are hard to take place.
+
+
+
+
+  
